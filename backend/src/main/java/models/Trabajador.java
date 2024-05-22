@@ -7,6 +7,8 @@ import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,7 +16,7 @@ import java.util.Date;
 @Entity
 @Table(name = "trabajador")
 @EntityListeners(AuditingEntityListener.class)
-public class trabajador {
+public class Trabajador {
 
     @Column(name = "Usuario")
     private String usuario;
@@ -41,7 +43,6 @@ public class trabajador {
     @Column(name = "RFC")
     private String rfc;
 
-
     @OneToMany(mappedBy = "trabajador")
-    private Set<Asignacion> asignaciones 
+    private Set<Asignacion> asignaciones = new HashSet<>();
 }
