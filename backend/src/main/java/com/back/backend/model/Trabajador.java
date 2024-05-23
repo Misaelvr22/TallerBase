@@ -1,5 +1,6 @@
 package com.back.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,24 +26,27 @@ public class Trabajador {
     private String password;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id_trab")
     private int id;
 
-    @Column(name = "Nombre")
+    @Column(name = "Nombre", length = 40, nullable = false)
     private String nombre;
 
     @Column(name = "Sueldo_hr")
     private float sueldo_hr;
 
     @Column(name = "Fecha_ingreso")
-    private Date fecha_ingreso;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String fecha_ingreso;
 
-    @Column(name = "Oficio")
+    @Column(name = "Oficio", length = 20, nullable = false)
     private String oficio;
 
-    @Column(name = "RFC")
+    @Column(name = "RFC", length = 13, nullable = false, unique = true)
     private String rfc;
 
+    // !TODO: Change OneToMany to ManyToOne
     @OneToMany(mappedBy = "trabajador")
     private Set<Asignacion> asignaciones = new HashSet<>();
 }

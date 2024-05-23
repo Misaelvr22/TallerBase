@@ -22,5 +22,8 @@ public class Asignacion {
     @JoinColumn(name = "obra_id")
     private Obra obra;
 
+    @Column(name = "dias")
+    private int dias;
+
 
 }
