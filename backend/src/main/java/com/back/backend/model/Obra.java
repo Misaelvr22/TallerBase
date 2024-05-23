@@ -1,4 +1,4 @@
-package models;
+package com.back.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
