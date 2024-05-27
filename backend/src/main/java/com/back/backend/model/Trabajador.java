@@ -46,10 +46,9 @@ public class Trabajador {
     @Column(name = "RFC", length = 13, nullable = false, unique = true)
     private String rfc;
 
-    @Column(name = "jefe")
+    @Column(name = "isJefe")
     private boolean jefe;
 
-    // !TODO: Change OneToMany to ManyToOne
     @OneToMany(mappedBy = "trabajador")
     private Set<Asignacion> asignaciones = new HashSet<>();
 }

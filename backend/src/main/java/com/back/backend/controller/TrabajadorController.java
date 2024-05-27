@@ -33,4 +33,22 @@ public class TrabajadorController {
     public List<Trabajador> getAllTrabajador() {
         return trabajadorService.getAllTrabajadores();
     }
+
+    @PostMapping("/findTrabajador")
+    public ResponseEntity<?> findTrabajador(@RequestParam String id) {
+        try {
+            int parsedId = Integer.parseInt(id); // Parse the ID
+            Trabajador trabajador = trabajadorService.findById(parsedId);
+            if (trabajador != null) {
+                return ResponseEntity.ok(trabajador);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (NumberFormatException e) {
+            // Handle invalid ID (e.g., non-integer input)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+
 }

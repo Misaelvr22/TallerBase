@@ -31,10 +31,15 @@ public class TrabajadorServiceImpl implements TrabajadorService {
     }
 
     // !TODO: fix trabajador repository
+//    @Override
+//    public boolean isBoss(int id) {
+//        return trabajadorRepository.findById(id) != null && trabajadorRepository.findById(id).isJefe();
+//    }
+
+
     @Override
-    public boolean isBoss(int id){
-        Trabajador trabajador = trabajadorRepository.findById(id);
-        return trabajador != null && trabajador.isJefe();
+    public Trabajador findById(int id) {
+        return trabajadorRepository.findById(id);
     }
 
 }

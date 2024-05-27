@@ -8,5 +8,5 @@ public interface TrabajadorService {
     public Trabajador saveTrabajador(Trabajador trabajador);
     public List<Trabajador> getAllTrabajadores();
     public boolean existsByRfc(String rfc);
-    public boolean isBoss(int id);
+    public Trabajador findById(int id);
 }

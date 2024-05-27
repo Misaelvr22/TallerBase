@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrabajadorRepository extends JpaRepository<Trabajador, Integer> {
     boolean existsByRfc(String rfc);
-    boolean isBoss(int id);
+//    boolean isBoss(int id);
+    Trabajador findById(int id);
 }
