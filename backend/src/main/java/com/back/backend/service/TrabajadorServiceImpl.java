@@ -42,4 +42,14 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         return trabajadorRepository.findById(id);
     }
 
+    @Override
+    public void deleteTrabajador(int id) {
+        // Implement logic to delete a Trabajador by ID
+        // Example:
+        Trabajador existingTrabajador = trabajadorRepository.findById(id);
+        if (existingTrabajador != null) {
+            trabajadorRepository.delete(existingTrabajador);
+        }
+    }
+
 }

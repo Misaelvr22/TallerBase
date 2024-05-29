@@ -51,4 +51,35 @@ public class TrabajadorController {
     }
 
 
+    @PutMapping("/updateTrabajador/{id}")
+    public ResponseEntity<String> updateTrabajador(@PathVariable int id, @RequestBody Trabajador updatedTrabajador) {
+        Trabajador existingTrabajador = trabajadorService.findById(id);
+        if (existingTrabajador == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Trabajador not found.");
+        }
+
+        // Update relevant fields (e.g., name, salary, etc.) in existingTrabajador
+        existingTrabajador.setNombre(updatedTrabajador.getNombre());
+        // ... (update other fields as needed)
+
+        trabajadorService.saveTrabajador(existingTrabajador);
+        return ResponseEntity.ok("Trabajador updated successfully.");
+    }
+
+
+    // Delete a Trabajador by ID
+    @DeleteMapping("/deleteTrabajador/{id}")
+    public ResponseEntity<String> deleteTrabajador(@PathVariable int id) {
+        Trabajador existingTrabajador = trabajadorService.findById(id);
+        if (existingTrabajador == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Trabajador not found.");
+        }
+
+        trabajadorService.deleteTrabajador(id);
+        return ResponseEntity.ok("Trabajador deleted successfully.");
+    }
+
+
 }

@@ -14,16 +14,15 @@ public class Asignacion {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "trabajador_id")
+    @JoinColumn(name = "idTrabajador")
     private Trabajador trabajador;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "obra_id")
+    @JoinColumn(name = "idObra")
     private Obra obra;
 
     @Column(name = "dias")
     private int dias;
-
-
 }
+
