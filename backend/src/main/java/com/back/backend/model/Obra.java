@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "obra")
 public class Obra {
     @Id
-    @Column(name = "Id_obra", length = 4, nullable = false)
+    @Column(name = "Id_obra", length = 4, nullable = false, unique = true)
     private String idObra;
 
     @Column(name = "Direccion", length = 50, nullable = false)

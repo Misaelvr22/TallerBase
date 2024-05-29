@@ -23,6 +23,10 @@ public class ObraServiceImpl implements ObraService{
 
     @Override
     public boolean existsByidObra(String idObra) {
-        return false;
+        return obraRepository.existsById(idObra);
     }
+
+
+
+
 }

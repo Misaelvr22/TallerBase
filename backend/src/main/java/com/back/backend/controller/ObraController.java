@@ -17,18 +17,17 @@ public class ObraController {
     private ObraService obraService;
 
     @PostMapping("/add")
-    public ResponseEntity<String>addObra(@RequestBody Obra obra){
-        //Check if the IdObra already exists in the database
+    public ResponseEntity<String> addObra(@RequestBody Obra obra) {
         if (obraService.existsByidObra(obra.getIdObra())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("IdObra alredy exists. Obra not added.");
+                    .body("Obra already exists. Obra not added.");
         }
 
         obraService.saveObra(obra);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Obra added successfully");
-
+                .body("Obra added successfully.");
     }
+
 
     @GetMapping("/getAll")
     public List<Obra> getAllobras() {
@@ -36,4 +35,11 @@ public class ObraController {
 
     }
 
-    }
+
+    
+
+
+
+
+
+}
