@@ -1,5 +1,6 @@
 package com.back.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,26 +11,15 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "asignacion")
-//@IdClass(AsignacionPK.class)
 public class Asignacion {
 
     @EmbeddedId
     private AsignacionPK idAsignacion;
 
-
-//    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "idTrabajador")
-//    private Trabajador trabajador;
-//
-//    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "idObra")
-//    private Obra obra;
-
     @Column(name = "dias")
     private int dias;
 
+    // Relationship mappings (optional):
     @ManyToOne
     @JoinColumn(name = "idTrabajador", insertable = false, updatable = false)
     private Trabajador trabajador;
@@ -38,4 +28,3 @@ public class Asignacion {
     @JoinColumn(name = "idObra", insertable = false, updatable = false)
     private Obra obra;
 }
-

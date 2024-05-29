@@ -1,5 +1,7 @@
 package com.back.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +27,7 @@ public class Obra {
     private String tipo;
 
     @OneToMany(mappedBy = "obra")
+    @JsonIgnore
     private Set<Asignacion> asignaciones = new HashSet<>();
 
 }

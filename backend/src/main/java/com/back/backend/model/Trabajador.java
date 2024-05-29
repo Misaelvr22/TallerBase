@@ -1,6 +1,8 @@
 package com.back.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,5 +46,6 @@ public class Trabajador {
     private String rfc;
 
     @OneToMany(mappedBy = "trabajador")
-    private Set<Asignacion> asignaciones = new HashSet<>();
+    @JsonBackReference
+    private Set<Asignacion> asignaciones;
 }
