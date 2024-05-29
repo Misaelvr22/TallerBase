@@ -10,19 +10,32 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "asignacion")
+//@IdClass(AsignacionPK.class)
 public class Asignacion {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "idTrabajador")
-    private Trabajador trabajador;
+    @EmbeddedId
+    private AsignacionPK idAsignacion;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "idObra")
-    private Obra obra;
+
+//    @Id
+//    @ManyToOne
+//    @JoinColumn(name = "idTrabajador")
+//    private Trabajador trabajador;
+//
+//    @Id
+//    @ManyToOne
+//    @JoinColumn(name = "idObra")
+//    private Obra obra;
 
     @Column(name = "dias")
     private int dias;
+
+    @ManyToOne
+    @JoinColumn(name = "idTrabajador", insertable = false, updatable = false)
+    private Trabajador trabajador;
+
+    @ManyToOne
+    @JoinColumn(name = "idObra", insertable = false, updatable = false)
+    private Obra obra;
 }
 
