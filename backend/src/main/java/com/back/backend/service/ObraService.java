@@ -9,5 +9,6 @@ public interface ObraService {
     public List<Obra> getAllObras();
     boolean existsByidObra(String idObra);
     public Obra findByIdObra(String idObra);
+    void deleteObra(String idObra);
 
 }

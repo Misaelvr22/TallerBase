@@ -52,6 +52,18 @@ public class ObraController {
 
 
 
+    @DeleteMapping("/deleteObra/{id}")
+    public ResponseEntity<String> deleteObra(@PathVariable String id) {
+        Obra existingObra = obraService.findByIdObra(id);
+        if (existingObra == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Obra not found.");
+        }
+
+        obraService.deleteObra(id);
+        return ResponseEntity.ok("Obra deleted successfully.");
+    }
+
 
 
 

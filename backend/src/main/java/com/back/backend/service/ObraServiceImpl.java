@@ -31,5 +31,14 @@ public class ObraServiceImpl implements ObraService{
         return obraRepository.findById(idObra).get();
     }
 
+    @Override
+    public void deleteObra(String idObra) {
+        Obra existingObra = obraRepository.findById(idObra).get();
+        if(existingObra != null) {
+            obraRepository.delete(existingObra);
+        }
+
+    }
+
 
 }
