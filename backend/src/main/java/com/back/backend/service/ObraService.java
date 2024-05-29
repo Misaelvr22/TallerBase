@@ -8,4 +8,6 @@ public interface ObraService {
     public Obra saveObra(Obra obra);
     public List<Obra> getAllObras();
     boolean existsByidObra(String idObra);
+    public Obra findByIdObra(String idObra);
+
 }

@@ -34,9 +34,23 @@ public class ObraController {
         return obraService.getAllObras();
 
     }
+    @PutMapping("/updateObra/{id}")
+    public ResponseEntity<String> updateTrabajador(@PathVariable String id, @RequestBody Obra updatedObra) {
+        Obra existingObra = obraService.findByIdObra(id);
+        if (existingObra == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Trabajador not found.");
+        }
+
+        // Update relevant fields (e.g., name, salary, etc.) in existingTrabajador
+        existingObra.setTipo(updatedObra.getTipo());
+        // ... (update other fields as needed)
+
+        obraService.saveObra(existingObra);
+        return ResponseEntity.ok("Trabajador updated successfully.");
+    }
 
 
-    
 
 
 

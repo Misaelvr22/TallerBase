@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ObraRepository extends JpaRepository<Obra, String> {
     boolean existsById(String id);
+    Obra findByIdObra(String idObra);
 
 
 }

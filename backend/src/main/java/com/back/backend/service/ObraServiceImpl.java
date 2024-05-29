@@ -26,7 +26,10 @@ public class ObraServiceImpl implements ObraService{
         return obraRepository.existsById(idObra);
     }
 
-
+    @Override
+    public Obra findByIdObra(String idObra) {
+        return obraRepository.findById(idObra).get();
+    }
 
 
 }
