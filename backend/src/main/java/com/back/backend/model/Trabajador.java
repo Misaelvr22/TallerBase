@@ -2,6 +2,7 @@ package com.back.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,9 +33,11 @@ public class Trabajador {
     @Column(name = "Nombre", length = 40, nullable = false)
     private String nombre;
 
+    @JsonIgnore
     @Column(name = "Sueldo_hr")
     private float sueldo_hr;
 
+    @JsonIgnore
     @Column(name = "Fecha_ingreso")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String fecha_ingreso;
