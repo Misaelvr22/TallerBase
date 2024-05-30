@@ -93,9 +93,9 @@ function Crud() {
           </div>
           <select className="custom-select form-control" id="Ofico"  onChange={(event)=>{setOficio(event.target.value);}}>
             <option defaultValue>Selecciona...</option>
-            <option value="1">Carpintero</option>
-            <option value="2">Herrero</option>
-            <option value="3">Fontanero</option>
+            <option value="carpintero">Carpintero</option>
+            <option value="herrero">Herrero</option>
+            <option value="fontanero">Fontanero</option>
           </select>
         </div>
 
