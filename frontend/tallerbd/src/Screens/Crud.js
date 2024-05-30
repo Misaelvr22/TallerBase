@@ -11,6 +11,9 @@ function Crud() {
   const [password, setPassword] = useState ("");
   const [oficio, setOficio] = useState ("");
 
+
+  const [trabajadoresList, setTrabajadores] = useState([]);
+
   const add = () => {
     Axios.post("http://localhost:8080/trabajador/add",{
 
@@ -21,6 +24,13 @@ function Crud() {
 
     }).then(()=>{
       alert("EmpleadoRegistrado");
+    });
+  }
+
+  const getAll = () => {
+    Axios.get("http://localhost:8080/trabajador/getAll").then((response)=>{
+      setTrabajadores(response.data);
+
     });
   }
 
@@ -97,17 +107,26 @@ function Crud() {
             <option value="herrero">Herrero</option>
             <option value="fontanero">Fontanero</option>
           </select>
-        </div>
-
-
-        
+        </div>        
         </div>
 
           <div class="card-footer text-muted">
             <button className='btn btn-success' onClick={add}>Registrar</button>
           </div>
-
      </div>
+
+
+     <div className='card-fotter text-muted'>
+            <button onClick={getAll} className='btn btn-success'>Listar</button>
+
+          </div>
+
+          {
+            trabajadoresList.map((val, key) =>{
+              return <div className=''> {val.nombre} </div>
+            })
+          }
+
      <table class="table table-striped">
      <thead>
       <tr>
