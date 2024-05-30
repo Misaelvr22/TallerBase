@@ -55,6 +55,18 @@ public class AsignacionController {
         return asignacionRepository.findAll();
     }
 
+    @DeleteMapping("/delete/{idTrabajador}/{idObra}")
+    public ResponseEntity<String> deleteAsignacion(@PathVariable int idTrabajador, @PathVariable String idObra) {
+        AsignacionPK asignacionId = new AsignacionPK(idTrabajador, idObra);
+
+        if (!asignacionRepository.existsById(asignacionId)) {
+            return ResponseEntity.badRequest().body("La asignación con ID " + idTrabajador + "-" + idObra + " no existe.");
+        }
+
+        asignacionRepository.deleteById(asignacionId);
+        return ResponseEntity.ok("Asignación con ID " + idTrabajador + "-" + idObra + " eliminada correctamente.");
+    }
+
 
 
 }
