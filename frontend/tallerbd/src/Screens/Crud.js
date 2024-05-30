@@ -62,11 +62,11 @@ function Crud() {
   };*/
 
   return (
-      <div class="container">
+      <div className="container">
         <div className="Crud">
         </div>
-        <div class="card text-center">
-          <div class="card-header">
+        <div className="card text-center">
+          <div className="card-header">
             GESTION DE TRABAJADORES
           </div>
 
@@ -104,7 +104,7 @@ function Crud() {
 
             <div className="input-group mb-3">
               <span className="input-group-text" id="basic-addon1">Contraseña:</span>
-              <input type="password" class="form-control" id="Contraseña" placeholder="Constraseña"
+              <input type="password" className="form-control" id="Contraseña" placeholder="Constraseña"
                      onChange={(event) => {
                        setPassword(event.target.value);
                      }}/>
