@@ -26,23 +26,23 @@ public class AsignacionController {
     @PostMapping("/add")
     public ResponseEntity<String> addAsignacion(@RequestBody Asignacion asignacion) {
 
-        if(!obraRepository.existsById(asignacion.getIdAsignacion().getIdObra()) && !trabajadorRepository.existsById(asignacion.getIdAsignacion().getIdTrabajador())){
-            return ResponseEntity.badRequest().body("El trabajador y la obra no existe.");
-        }
-
-        if (!obraRepository.existsById(asignacion.getIdAsignacion().getIdObra())) {
-            return ResponseEntity.badRequest().body("El idObra no existe.");
-        }
-
-        if (!trabajadorRepository.existsById(asignacion.getIdAsignacion().getIdTrabajador())) {
-            return ResponseEntity.badRequest().body("El idTrabajador no existe.");
-        }
-
-        boolean obraExists = obraRepository.existsById(asignacion.getIdAsignacion().getIdObra());
-
-        if (obraExists) {
-            return ResponseEntity.badRequest().body("La obra con idObra " + asignacion.getIdAsignacion().getIdObra() + "-" + asignacion.getIdAsignacion().getIdTrabajador()+ " ya está registrada.");
-        }
+//        if(!obraRepository.existsById(asignacion.getIdAsignacion().getIdObra()) && !trabajadorRepository.existsById(asignacion.getIdAsignacion().getIdTrabajador())){
+//            return ResponseEntity.badRequest().body("El trabajador y la obra no existe.");
+//        }
+//
+//        if (!obraRepository.existsById(asignacion.getIdAsignacion().getIdObra())) {
+//            return ResponseEntity.badRequest().body("El idObra no existe.");
+//        }
+//
+//        if (!trabajadorRepository.existsById(asignacion.getIdAsignacion().getIdTrabajador())) {
+//            return ResponseEntity.badRequest().body("El idTrabajador no existe.");
+//        }
+//
+//        boolean obraExists = obraRepository.existsById(asignacion.getIdAsignacion().getIdObra());
+//
+//        if (obraExists) {
+//            return ResponseEntity.badRequest().body("La obra con idObra " + asignacion.getIdAsignacion().getIdObra() + "-" + asignacion.getIdAsignacion().getIdTrabajador()+ " ya está registrada.");
+//        }
         // Guardar la asignación si ambos valores existen
         asignacionRepository.save(asignacion);
         return ResponseEntity.ok("Asignación guardada correctamente.");
@@ -66,6 +66,26 @@ public class AsignacionController {
         asignacionRepository.deleteById(asignacionId);
         return ResponseEntity.ok("Asignación con ID " + idTrabajador + "-" + idObra + " eliminada correctamente.");
     }
+
+    @PutMapping("/update/{idTrabajador}/{idObra}")
+    public ResponseEntity<String> updateAsignacion(@PathVariable int idTrabajador, @PathVariable String idObra, @RequestBody Asignacion updatedAsignacion) {
+        AsignacionPK asignacionId = new AsignacionPK(idTrabajador, idObra);
+
+        if (!asignacionRepository.existsById(asignacionId)) {
+            return ResponseEntity.badRequest().body("La asignación con ID " + idTrabajador + "-" + idObra + " no existe.");
+        }
+
+        // Actualiza los valores de la asignación existente
+        Asignacion existingAsignacion = asignacionRepository.findById(asignacionId).orElse(null);
+        if (existingAsignacion != null) {
+            existingAsignacion.setDias(updatedAsignacion.getDias());
+            asignacionRepository.save(existingAsignacion);
+            return ResponseEntity.ok("Asignación con ID " + idTrabajador + "-" + idObra + " actualizada correctamente.");
+        } else {
+            return ResponseEntity.badRequest().body("Error al actualizar la asignación.");
+        }
+    }
+
 
 
 
