@@ -11,6 +11,8 @@ function Crud() {
   const [password, setPassword] = useState ("");
   const [oficio, setOficio] = useState ("");
 
+  const [editar, setEditar] = useState (false);
+
 
   const [trabajadoresList, setTrabajadores] = useState([]);
 
@@ -37,29 +39,12 @@ function Crud() {
 
   getAll();
 
-   /*const [formData, setFormData] = useState({
-    nombre: '',
-    rfc: '',
-    password: '',
-    oficio: '',
-  });
+  const updateTrabajador = (val) =>{
+    setUsuario(val.rfc);
+    setRFC(val.rfc);
+    setNombre(val.nombre);
+  }
 
-  const handleChange = (e) => {
-    
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-    //if(name==="nombre")
-      if (/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(value)) {
-        console.log("Invalido: " + value)
-      } else {
-        console.log("validos:" + value)
-      }
-    
-  };*/
 
   return (
       <div className="container">
@@ -74,7 +59,7 @@ function Crud() {
 
             <div className="input-group mb-3">
               <span className="input-group-text" id="basic-addon1">Usuario:</span>
-              <input type="text"
+              <input type="text" value={usuario}
 
                      className="form-control" id="usuario" placeholder="Ingrese su usuario" aria-label="Username"
                      aria-describedby="basic-addon1" onChange={(event) => {
@@ -84,7 +69,7 @@ function Crud() {
 
             <div className="input-group mb-3">
               <span className="input-group-text" id="nombre">Nombre:</span>
-              <input type="text"
+              <input type="text" value={nombre}
 
                      className="form-control" id="Nombre" placeholder="Ingrese su nombre" aria-label="Username"
                      aria-describedby="basic-addon1" onChange={(event) => {
@@ -94,7 +79,7 @@ function Crud() {
 
             <div className="input-group mb-3">
               <span className="input-group-text" id="basic-addon1">RFC:</span>
-              <input type="text"
+              <input type="text" value={rfc}
 
                      className="form-control" id="RFC" placeholder="Ingresa tu RFC" aria-label="Username"
                      aria-describedby="basic-addon1" onChange={(event) => {
@@ -104,7 +89,7 @@ function Crud() {
 
             <div className="input-group mb-3">
               <span className="input-group-text" id="basic-addon1">Contraseña:</span>
-              <input type="password" className="form-control" id="Contraseña" placeholder="Constraseña"
+              <input type="password"  value={password} className="form-control" id="Contraseña" placeholder="Constraseña"
                      onChange={(event) => {
                        setPassword(event.target.value);
                      }}/>
@@ -116,13 +101,13 @@ function Crud() {
                   Oficio
                 </label>
               </div>
-              <select className="custom-select form-control" id="Ofico" onChange={(event) => {
+              <select className="custom-select form-control" id="Ofico" value={oficio} onChange={(event) => {
                 setOficio(event.target.value);
               }}>
                 <option defaultValue>Selecciona...</option>
-                <option value="carpintero">Carpintero</option>
-                <option value="herrero">Herrero</option>
-                <option value="fontanero">Fontanero</option>
+                <option value="Carpintero">Carpintero</option>
+                <option value="Herrero">Herrero</option>
+                <option value="Fontanero">Fontanero</option>
               </select>
             </div>
           </div>
@@ -158,7 +143,9 @@ function Crud() {
                   <td>{val.sueldo_hr}</td>
                   <td>
                     <div className="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" className="btn btn-info">Editar</button>
+                      <button type="button" onClick={()=>{
+                        updateTrabajador(val);
+                      }} className="btn btn-info">Editar</button>
                       <button type="button" className="btn btn-danger">Eliminar</button>
                     </div>
                   </td>
