@@ -33,11 +33,9 @@ public class Trabajador {
     @Column(name = "Nombre", length = 40, nullable = false)
     private String nombre;
 
-    @JsonIgnore
     @Column(name = "Sueldo_hr")
     private float sueldo_hr;
 
-    @JsonIgnore
     @Column(name = "Fecha_ingreso")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String fecha_ingreso;

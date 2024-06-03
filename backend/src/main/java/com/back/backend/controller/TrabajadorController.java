@@ -61,8 +61,9 @@ public class TrabajadorController {
 
         // Update relevant fields (e.g., name, salary, etc.) in existingTrabajador
         existingTrabajador.setNombre(updatedTrabajador.getNombre());
-        existingTrabajador.setOficio(updatedTrabajador.getOficio());
         existingTrabajador.setPassword(updatedTrabajador.getPassword());
+        existingTrabajador.setRfc(updatedTrabajador.getRfc());
+        existingTrabajador.setOficio(updatedTrabajador.getOficio());
         // ... (update other fields as needed)
 
         trabajadorService.saveTrabajador(existingTrabajador);

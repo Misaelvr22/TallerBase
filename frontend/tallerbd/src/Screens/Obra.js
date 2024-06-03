@@ -5,52 +5,42 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 
 function Crud() {
-    const [nombre, setNombre] = useState("");
-    const [rfc, setRFC] = useState("");
-    const [password, setPassword] = useState("");
-    const [oficio, setOficio] = useState("");
-    const [sueldo, setSueldo] = useState(0);
-    const [fecha, setFecha] = useState("0000-00-00");
+    const [tipo, setTipo] = useState("");
+    const [direccion, setDireccion] = useState("");
 
-    const [trabajadoresList, setTrabajadoresList] = useState([]);
+    const [obrasList, setObrasList] = useState([]);
 
     const [editar, setEditar] = useState(false);
-    const [idTrabajador, setIdTrabajador] = useState(null);
+    const [idObra, setIdObra] = useState(null);
 
     useEffect(() => {
         getAll();
     }, []);
 
     const limpiarCampos = () => {
-        setNombre("");
-        setOficio("");
-        setRFC("");
-        setPassword("");
+        setTipo("");
+        setDireccion("");
         setEditar(false);
-        setIdTrabajador(null);
+        setIdObra("");
     }
 
     const editarTrabajador = (val) => {
         setEditar(true);
-        setNombre(val.nombre);
-        setOficio(val.oficio);
-        setRFC(val.rfc);
-        setPassword(val.password);
-        setSueldo(0);
-        setFecha("0000-00-00");
-        setIdTrabajador(val.idTrabajador);
+        setIdObra(val.idObra);
+        setDireccion(val.direccion);
+        setTipo(val.tipo);
     };
 
+
     const add = () => {
-        Axios.post("http://localhost:8080/trabajador/add", {
-            nombre: nombre,
-            rfc: rfc,
-            password: password,
-            oficio: oficio
+        Axios.post("http://localhost:8080/obra/add", {
+            idObra: idObra,
+            tipo: tipo,
+            direccion: direccion
         }).then(() => {
             Swal.fire({
                 title: "Registro exitoso!",
-                text: `El usuario ${nombre} ha sido registrado con éxito`,
+                text: `La obra ${idObra} ha sido registrado con éxito`,
                 icon: "success"
             });
             limpiarCampos();
@@ -61,8 +51,8 @@ function Crud() {
                     // Manejar el error 409 (Conflicto)
                     Swal.fire({
                         icon: "error",
-                        title: "Error al agregar el usuario",
-                        text: "El usuario ya existe en la base de datos."
+                        title: "Error al agregar obra",
+                        text: "La obra ya existe en la base de datos."
                     });
                 } else if (error.response.status === 500) {
                     // Manejar el error 500 (Error interno del servidor)
@@ -76,8 +66,8 @@ function Crud() {
                     console.error("Error al agregar obra:", error.response.data);
                     Swal.fire({
                         icon: "error",
-                        title: "Error al agregar el usuario",
-                        text: "Ocurrió un error al intentar agregar el usuario. Por favor, inténtalo de nuevo más tarde."
+                        title: "Error al agregar obra",
+                        text: "Ocurrió un error al intentar agregar la obra. Por favor, inténtalo de nuevo más tarde."
                     });
                 }
             }
@@ -85,15 +75,14 @@ function Crud() {
     };
 
     const updateTrabajador = () => {
-        Axios.put(`http://localhost:8080/trabajador/updateTrabajador/${idTrabajador}`, {
-            nombre: nombre,
-            rfc: rfc,
-            password: password,
-            oficio: oficio
+        Axios.put(`http://localhost:8080/obra/updateObra/${idObra}`, {
+            idObra: idObra,
+            direccion: direccion,
+            tipo: tipo
         }).then((response) => {
             Swal.fire({
                 title: "Actualización exitosa!",
-                text: `El usuario ${nombre} ha sido actualizado con éxito`,
+                text: `La obra ${idObra} ha sido actualizada con éxito`,
                 icon: "success"
             });
             limpiarCampos();
@@ -102,7 +91,7 @@ function Crud() {
         }).catch((error) => {
             Swal.fire({
                 icon: "error",
-                title: `Hubo un error actualizando el trabajador ${nombre}`
+                title: `Hubo un error actualizando la obra ${idObra}`
             });
         });
     };
@@ -118,11 +107,11 @@ function Crud() {
             confirmButtonText: 'Sí, eliminarlo!'
         }).then((result) => {
             if (result.isConfirmed) {
-                Axios.delete(`http://localhost:8080/trabajador/deleteTrabajador/${id}`)
+                Axios.delete(`http://localhost:8080/obra/deleteObra/${id}`)
                     .then((response) => {
                         Swal.fire(
                             'Eliminado!',
-                            'El trabajador ha sido eliminado.',
+                            'La obra ha sido eliminada.',
                             'success'
                         );
                         limpiarCampos();
@@ -131,7 +120,7 @@ function Crud() {
                     .catch((error) => {
                         Swal.fire({
                             icon: "warning",
-                            title: "El trabajador sigue asignado a una obra"
+                            title: "La obra sigue asignada a un trabajador"
                         });
                     });
             }
@@ -139,10 +128,10 @@ function Crud() {
     };
 
     const getAll = () => {
-        Axios.get("http://localhost:8080/trabajador/getAll").then((response) => {
-            setTrabajadoresList(response.data);
+        Axios.get("http://localhost:8080/obra/getAll").then((response) => {
+            setObrasList(response.data);
         }).catch((error) => {
-            alert("Error obteniendo la lista de trabajadores");
+            alert("Error obteniendo la lista de obras");
         });
     };
 
@@ -157,45 +146,42 @@ function Crud() {
                 <div className="card-body">
 
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Nombre:</span>
-                        <input type="text" value={nombre}
-                               className="form-control" id="Nombre" placeholder="Ingrese su nombre" aria-label="Nombre"
+                        <span className="input-group-text" id="basic-addon1">ID Obra:</span>
+                        <input type="text" value={idObra}
+                               className="form-control" id="Nombre" placeholder="Ingrese el id de la obra O000"
+                               aria-label="Nombre"
                                aria-describedby="basic-addon1" onChange={(event) => {
-                            setNombre(event.target.value);
-                        }} required={true}/>
+                            setIdObra(event.target.value);
+                        }}/>
+
                     </div>
 
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">RFC:</span>
-                        <input type="text" value={rfc}
-                               className="form-control" id="RFC" placeholder="Ingresa tu RFC" aria-label="RFC"
+                        <span className="input-group-text" id="basic-addon1">Direccion:</span>
+                        <input type="text" value={direccion}
+                               className="form-control" id="Nombre" placeholder="Ingrese la direccion de la obra"
+                               aria-label="Direccion"
                                aria-describedby="basic-addon1" onChange={(event) => {
-                            setRFC(event.target.value);
-                        }} />
+                            setDireccion(event.target.value);
+                        }}/>
+
                     </div>
 
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Contraseña:</span>
-                        <input type="password" value={password} className="form-control" id="Password"
-                               placeholder="Contraseña" onChange={(event) => {
-                            setPassword(event.target.value);
-                        }} />
-                    </div>
 
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
                             <label className="input-group-text" htmlFor="Oficio">
-                                Oficio
+                                Tipo
                             </label>
                         </div>
-                        <select className="custom-select form-control" id="Oficio" value={oficio} onChange={(event) => {
-                            setOficio(event.target.value);
+                        <select className="custom-select form-control" id="Oficio" value={tipo} onChange={(event) => {
+                            setTipo(event.target.value);
                         }}>
                             <option defaultValue>Selecciona...</option>
-                            <option value="Carpintero">Carpintero</option>
-                            <option value="Herrero">Herrero</option>
-                            <option value="Fontanero">Fontanero</option>
+                            <option value="Publico">Publico</option>
+                            <option value="Privado">Privado</option>
                         </select>
+
                     </div>
                 </div>
 
@@ -215,31 +201,26 @@ function Crud() {
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">RFC</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Oficio</th>
-                    <th scope="col">Fecha de Ingreso</th>
-                    <th scope="col">Sueldo por hora</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
-                    trabajadoresList.map((val, key) => (
+                    obrasList.map((val, key) => (
                         <tr key={key}>
-                            <th scope="row">{val.idTrabajador}</th>
-                            <td>{val.rfc}</td>
-                            <td>{val.nombre}</td>
-                            <td>{val.oficio}</td>
-                            <td>{val.fecha_ingreso}</td>
-                            <td>{val.sueldo_hr}</td>
+                            <th scope="row">{val.idObra}</th>
+                            <td>{val.direccion}</td>
+                            <td>{val.tipo}</td>
+
                             <td>
                                 <div className="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" className="btn btn-info" onClick={() => {
                                         editarTrabajador(val);
                                     }}>Editar</button>
                                     <button type="button" className="btn btn-danger" onClick={() =>{
-                                        deleteTrabajador(val.idTrabajador);
+                                        deleteTrabajador(val.idObra);
                                     }}>Eliminar</button>
                                 </div>
                             </td>

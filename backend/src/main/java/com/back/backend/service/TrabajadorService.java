@@ -9,5 +9,5 @@ public interface TrabajadorService {
     public List<Trabajador> getAllTrabajadores();
     public boolean existsByRfc(String rfc);
     public Trabajador findById(int id);
-    void deleteTrabajador(int id);
+    public void deleteTrabajador(int id);
 }

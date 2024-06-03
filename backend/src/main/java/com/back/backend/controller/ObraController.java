@@ -44,6 +44,7 @@ public class ObraController {
 
         // Update relevant fields (e.g., name, salary, etc.) in existingTrabajador
         existingObra.setTipo(updatedObra.getTipo());
+        existingObra.setDireccion(updatedObra.getDireccion());
         // ... (update other fields as needed)
 
         obraService.saveObra(existingObra);

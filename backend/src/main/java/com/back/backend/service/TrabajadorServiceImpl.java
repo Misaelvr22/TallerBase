@@ -30,13 +30,6 @@ public class TrabajadorServiceImpl implements TrabajadorService {
         return trabajadorRepository.existsByRfc(rfc);
     }
 
-    // !TODO: fix trabajador repository
-//    @Override
-//    public boolean isBoss(int id) {
-//        return trabajadorRepository.findById(id) != null && trabajadorRepository.findById(id).isJefe();
-//    }
-
-
     @Override
     public Trabajador findById(int id) {
         return trabajadorRepository.findById(id);
